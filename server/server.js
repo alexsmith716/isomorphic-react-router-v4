@@ -4,8 +4,6 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import path from 'path';
 import appConfig from '../appConfig';
-import setInitPageData from '../util/setInitPageData';
-import pageData from './routes/pageData.routes'
 import webpack from 'webpack';
 import config from '../webpack.config.dev';
 import webpackDevMiddleware from 'webpack-dev-middleware';
@@ -36,7 +34,6 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import reducers from '../client/reducers';
 import thunk from 'redux-thunk';
-const store = createStore(reducers, applyMiddleware(thunk));
 //import { renderToString } from 'react-dom/server';
 import Helmet from 'react-helmet';
 
@@ -64,13 +61,31 @@ mongoose.connect(process.env.MONGO_URL, mongooseOptions, error => {
 app.use(compression());
 app.use(bodyParser.json({ limit: '20mb' }));
 app.use(bodyParser.urlencoded({ limit: '20mb', extended: false }));
-app.use('/static', express.static(path.resolve(__dirname, '../dist/client')));
+//app.use('/static', express.static(path.resolve(__dirname, '../dist/client')));
 app.use('/public', express.static(path.join(__dirname, '../public')));
 //app.use('/api', pageData);
 
 // #########################################################################
 
-const renderFullPage = (html, initialState) => {
+const renderFullPage = (html) => {
+  const head = Helmet.rewind();
+  return `
+    <!doctype html>
+    <html lang="en">
+      <head>
+        <title>GVGVGVHGVJVHVHVHJVHGGHVGH!!!!</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+      </head>
+      <body>
+        <div id="root" style="height: 100%">BJHBKUHBKHBKJHBHJBHJBKJHB</div>
+      </body>
+    </html>
+  `;
+};
+
+const renderFullPageX = (html, initialState) => {
   const head = Helmet.rewind();
   return `
     <!doctype html>
@@ -90,18 +105,55 @@ const renderFullPage = (html, initialState) => {
         <script src='${process.env.NODE_ENV === 'production' ? '/static/vendor.js' : '/vendor.js'}'></script>
         <script src='${process.env.NODE_ENV === 'production' ? '/static/app.js': '/app.js'}'></script>
       </body>
-      </body>
     </html>
   `;
 };
 
 // #########################################################################
 
-app.use((req, res, next) => {
 
+
+// app.use((req, res, next) => {
+app.get('*', async (req, res) => {
+  try {
+
+    const store = createStore(reducers, applyMiddleware(thunk));
+    let foundPath = null;
+
+    let { path, component } = routeBank.routes.find(
+      ({ path, exact }) => {
+        foundPath = matchPath(req.url,
+          {
+            path,
+            exact,
+            strict: false
+          }
+        )
+        return foundPath;
+      }) || {};
+
+    if (!component)
+      component = {};
+
+    if (!component.fetchData)
+      component.fetchData = () => new Promise(resolve => resolve());
+
+    await component.fetchData({ store, params: (foundPath ? foundPath.params : {}) });
+
+    let preloadedState = store.getState();
+
+  } catch (error) {
+
+    console.log('>>>>>>>>>>>> server > app.use((req, res, next) > error: ', error)
+
+    res.status(400).send(renderFullPage('An error occured.', {}, {}));
 
   }
-);
+
+  console.log('>>>>>>>>>>>> server > app.use((req, res, next) > preloadedState: ', preloadedState)
+
+
+});
 /*
 app.use((req, res, next) => {
   const apiPrefix  = '/api/';
