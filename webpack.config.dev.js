@@ -24,10 +24,10 @@ module.exports = {
   },
 
   output: {
-    path: path.join(__dirname, 'build/dist'),
+    path: path.join(__dirname, './dist'),
     filename: '[name].js',
     chunkFilename: '[id].js',
-    publicPath: 'http://0.0.0.0:3000/',
+    publicPath: '/',
   },
 
   module: {
