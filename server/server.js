@@ -111,8 +111,6 @@ const renderFullPageX = (html, initialState) => {
 
 // #########################################################################
 
-
-
 // app.use((req, res, next) => {
 app.get('*', async (req, res) => {
   try {
@@ -141,6 +139,29 @@ app.get('*', async (req, res) => {
     await component.fetchData({ store, params: (foundPath ? foundPath.params : {}) });
 
     let preloadedState = store.getState();
+
+    let context = {};
+    const html = ReactDOM.renderToString(
+      <Provider store={store}>
+        <Router context={context} location={req.url}>
+          <App />
+        </Router>
+      </Provider>
+    )
+
+    const helmetData = helmet.renderStatic();
+
+    if (context.url)
+
+      res.redirect(context.status, 'http://' + req.headers.host + context.url);
+    
+    else if (foundPath && foundPath.path == '/404')
+
+      res.status(404).send(renderFullPage(html, preloadedState, helmetData))
+
+    else
+
+      res.send(renderFullPage(html, preloadedState, helmetData))
 
   } catch (error) {
 

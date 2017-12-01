@@ -5,7 +5,33 @@
 \margl1440\margr1440\vieww21900\viewh16280\viewkind0
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
-\f0\fs28 \cf0 \
+\f0\fs24 \cf0 \
+\
+\
+
+\fs28 * USING React-Router v4:\
+	(decide which method approach for handling routes)\
+\
+* NOT USING "react-router-config" from:\
+\
+* NOT USING "history" from:\
+\
+* USING "thunk" from:\
+\
+\
+\pard\pardeftab720\sl280\sa240\partightenfactor0
+\cf2 \expnd0\expndtw0\kerning0
+* The key for achieving isomorphic rendering is the ability to pre-fetch data before calling React.renderToString so the content(HTML) you sent to browser will have the required data.\
+\
+* In v4, there is no centralized route configuration. Anywhere that you need to render content based on a route, you render a component.\
+* There\'92s no central routes config
+\fs24 \cf0 \kerning1\expnd0\expndtw0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+\
+##################################################################################################\
+
+\fs28 \
 "react":\
 	* An npm package to get you immediate access to React\
 	* by default, React will be in development mode.\
@@ -16,6 +42,7 @@
 \
 \
 ####################################################################################\
+\
 "react-dom": \
 	* This package serves as the entry point of the DOM-related rendering paths. \
 	* It is intended to be paired with the isomorphic React, which will be shipped as `react` to npm.\
@@ -28,18 +55,16 @@ React Router keeps application UI and the URL in sync\cf0 \kerning1\expnd0\expnd
 	* The API enables lazy code loading, dynamic route matching, and location transition handling.\
 	* Make the URL your first thought, not an after-thought.\
 	* exports the core components and functions\
+\
 ####################################################################################\
 \
 \pard\pardeftab720\sl280\partightenfactor0
 \cf2 \expnd0\expndtw0\kerning0
-For those who don\'92t know what react-router-dom is and the difference between them, \
-the short answer is that react-router includes both react-router-dom and react-router-native. \
-For a web based project react-router-dom is usually what you need.\cf0 \kerning1\expnd0\expndtw0 \
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
-\cf0 \
-\pard\pardeftab720\sl280\partightenfactor0
+	* For those who don\'92t know what react-router-dom is and the difference between them, \
+	* The short answer is that react-router includes both react-router-dom and react-router-native. \
+	* For a web based project react-router-dom is usually what you need.\cf0 \kerning1\expnd0\expndtw0 \
 \cf2 \expnd0\expndtw0\kerning0
-You will probably want to use react-router-dom for 99.9% of web dev.\
+	* You will probably want to use react-router-dom for 99.9% of web dev.\
 \cf0 \kerning1\expnd0\expndtw0 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 \cf0 \
@@ -64,16 +89,6 @@ You will probably want to use react-router-dom for 99.9% of web dev.\
 	* Loading data on the server or in the lifecycle before rendering the next screen\
 	* Linking to routes by name\
 	* Static analysis\
-\
-"react-addons-create-fragment":\
-"react-paginate":\
-"react-scripts":\
-"react-svg-inline":\
-"react-bootstrap":\
-"react-select":\
-"react-addons-css-transition-group":\
-"react-dropzone":\
-"react-paginate":\
 \
 ############################################################\
 ############################################################\
@@ -162,36 +177,8 @@ makes application side effects (i.e. asynchronous things like data fetching and 
 
 \f0\fs28 \cf2 	* // wrap in withRouter\
 	* export default withRouter(PendingNavDataLoader)\
-\
-\
-\
-\
-\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 \cf0 \kerning1\expnd0\expndtw0 \
-\
-"redux-storage-engine-localstorage":\
-"redux-storage":\
-"redux-form":\
-"redux-connect":\
-"redux-watch":\
-"redux-api-middleware":\
-"redux-logger":\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
 \
 \
 \

@@ -1,23 +1,40 @@
-import ReactDOM from 'react-dom'
-import React from 'react'
-import { AppContainer } from 'react-hot-loader'
-import store, { history } from './store'
-import Root from './containers/Root'
 
-function renderApp (RootComponent) {
-  ReactDOM.render(
+import React from 'react';
+import { hydrate } from 'react-dom';
+import { AppContainer } from 'react-hot-loader';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Provider } from 'react-redux';
+
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+
+import reducers from './reducers';
+
+const store = createStore(
+  reducers, window.__INITIAL_STATE__, applyMiddleware(thunk)
+);
+
+hydrate((
+  <Provider store={store}>
+    <Router>
+      <App />
+    </Router>
+  </Provider>
+), document.getElementById('root'));
+
+/*
+const render = AppComponent => {
+  hydrate(
     <AppContainer>
-      <RootComponent store={store} history={history} />
+      <AppComponent store={store} />
     </AppContainer>,
     document.getElementById('root')
-  )
-}
-
-renderApp(Root)
+  );
+};
 
 if (module.hot) {
-  module.hot.accept('./containers/Root', () => {
-    const NextApp = require('./containers/Root').default
-    renderApp(NextApp)
-  })
+  module.hot.accept('./App', () => render(App));
 }
+
+render(App);
+*/

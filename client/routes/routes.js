@@ -1,15 +1,44 @@
 
-import React from 'react'
-import { Switch, Route } from 'react-router-dom'
+import About from '../modules/About/About';
+import Home from '../modules//Home/Home';
+import Login from '../modules/Login/Login';
+import Signup from '../modules/Signup/Signup';
 
-import About from './About'
-import Home from './Home'
-import PageNotFound from './PageNotFound'
 
-export default () => (
-  <Switch>
-    <Route path='/about' component={About} />
-    <Route path='/' exact component={Home} />
-    <Route component={PageNotFound} />
-  </Switch>
-)
+export default {
+  routes: [
+    {
+      path: '/',
+      component: Home,
+      exact: true
+    },
+    {
+      path: '/about',
+      component: About,
+      exact: true
+    },
+    {
+      path: '/login',
+      component: Login,
+      exact: true
+    },
+    {
+      path: '/signup',
+      component: Signup,
+      exact: true
+    }
+  ]
+} 
+
+/*
+,
+  redirects: [
+
+    {
+      from: '/here',
+      to: '/there',
+      status: 301
+    }
+  ]
+} 
+*/
