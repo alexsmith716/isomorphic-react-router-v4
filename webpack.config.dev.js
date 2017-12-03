@@ -3,11 +3,12 @@ const webpack = require('webpack');
 const path = require('path');
 require('dotenv').config();
 const autoprefixer = require('autoprefixer');
+const PUBLIC_PATH = `/${process.env.PUBLIC_PATH || ''}/`.replace('//', '/');
 
 console.log('>>>>>>> webpack.config.dev.js > process.env.NODE_ENV <<<<<<<<: ', process.env.NODE_ENV);
-// path: path.join(__dirname, './dist'),
 
 module.exports = {
+  
   devtool: 'cheap-module-eval-source-map',
 
   entry: {
@@ -25,16 +26,25 @@ module.exports = {
 
   output: {
     path: path.join(__dirname, './dist'),
+    // the target directory for all output files
+    // must be an absolute path (use the Node.js path module)
+    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     filename: '[name].js',
-    chunkFilename: '[id].js',
+    // the filename template for entry chunks
+    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    // chunkFilename: "[id].js",
+    // chunkFilename: '[name].[chunkhash].js', // for long term caching
+    // the filename template for additional chunks
+    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     publicPath: '/',
+    // the url to the output directory resolved relative to the HTML page
   },
 
   module: {
     loaders: [
       {
         test: /\.jsx*$/,
-        exclude: [/node_modules/, /.+\.config.js/],
+        exclude: [/node_modules/,],
         loader: 'babel-loader'
       },
       {

@@ -2,10 +2,12 @@
 import React, { Component } from 'react';
 import { Switch, Link, Route } from 'react-router-dom';
 
-import RedirectWithStatus from './redirect-w-status.jsx';
-import Navbar from './navbar.jsx';
-import routeOptions from '../routes/routes';
+import RouteRedirect from '../../routeRedirect/routeRedirect';
+import Navbar from './navbar';
+import routeOptions from '../../routes/routes';
 
+
+console.log('>>>>>>> clinet > modules > App > App <<<<<<<<<<<')
 
 class App extends Component {
 
@@ -16,7 +18,7 @@ class App extends Component {
     );
 
     let redirects = routeOptions.redirects.map(({ from, to, status }, i) =>
-      <RedirectWithStatus key={Math.random() + 'REDIRECT_'} from={from} to={to} status={status} />
+      <RouteRedirect key={Math.random() + 'REDIRECT_'} from={from} to={to} status={status} />
     );
 
     return (

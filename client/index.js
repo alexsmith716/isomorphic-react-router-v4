@@ -1,40 +1,36 @@
 
 import React from 'react';
-import { hydrate } from 'react-dom';
+import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
+import { configureStore } from './redux/store';
 
-import reducers from './reducers';
+import App from './modules/App/App';
 
-const store = createStore(
-  reducers, window.__INITIAL_STATE__, applyMiddleware(thunk)
-);
+const mountApp = document.getElementById('root');
 
-hydrate((
-  <Provider store={store}>
-    <Router>
-      <App />
-    </Router>
-  </Provider>
-), document.getElementById('root'));
+const store = configureStore( window.__INITIAL_STATE__ );
 
-/*
-const render = AppComponent => {
-  hydrate(
+const renderApp = (RootComponent) => {
+// const renderApp = (RootComponent: React.ComponentType<any>) => {
+  render(
     <AppContainer>
-      <AppComponent store={store} />
+      <Provider store={store}>
+        <Component />
+      </Provider>
     </AppContainer>,
-    document.getElementById('root')
+    mountApp
   );
 };
 
-if (module.hot) {
-  module.hot.accept('./App', () => render(App));
-}
+renderApp(App);
 
-render(App);
-*/
+if (module.hot) {
+  module.hot.accept('./modules/App/App', () => { renderApp(App); });
+  // module.hot.accept('./App', () => {
+  //   const NewApp = require('./App').default;
+  //   renderApp(NewApp);
+  // });
+}

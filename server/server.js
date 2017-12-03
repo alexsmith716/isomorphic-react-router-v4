@@ -9,7 +9,7 @@ import config from '../webpack.config.dev';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 
-const app = new Express();
+const app = new express();
 
 console.log('############## development111: ', process.env.NODE_ENV)
 
@@ -32,7 +32,7 @@ import ReactDOM from 'react-dom/server';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-import reducers from '../client/reducers';
+import reducers from '../client/redux/reducers';
 import thunk from 'redux-thunk';
 //import { renderToString } from 'react-dom/server';
 import Helmet from 'react-helmet';
@@ -53,7 +53,6 @@ mongoose.connect(process.env.MONGO_URL, mongooseOptions, error => {
     console.error('Please make sure Mongodb is installed and running!');
     throw error;
   }
-  setInitPageData();
 });
 
 // #########################################################################
@@ -79,7 +78,7 @@ const renderFullPage = (html) => {
         <meta name="viewport" content="width=device-width, initial-scale=1">
       </head>
       <body>
-        <div id="root" style="height: 100%">BJHBKUHBKHBKJHBHJBHJBKJHB</div>
+        <div id="root" style="height: 100%">Rendering tester object 'renderFullPage' from server ++++++++</div>
       </body>
     </html>
   `;
