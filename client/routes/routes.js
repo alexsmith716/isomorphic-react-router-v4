@@ -1,6 +1,6 @@
 
 import About from '../modules/About/About';
-import Home from '../modules//Home/Home';
+import Home from '../modules/Home/Home';
 import Login from '../modules/Login/Login';
 import Signup from '../modules/Signup/Signup';
 

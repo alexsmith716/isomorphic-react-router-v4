@@ -1,0 +1,22 @@
+
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
+import reducers from '../reducers';
+
+export function configureStore(initialState = {}) {
+
+  const enhancers = [
+    applyMiddleware(thunk),
+  ];
+
+  const store = createStore( reducers, initialState, compose(...enhancers) );
+
+  if (module.hot) {
+    module.hot.accept('../reducers', () => {
+      const newReducer = require('../reducers').default;
+      store.replaceReducer(newReducer);
+    });
+  }
+
+  return store;
+}
