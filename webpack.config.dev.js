@@ -6,32 +6,33 @@ const autoprefixer = require('autoprefixer');
 const PUBLIC_PATH = `/${process.env.PUBLIC_PATH || ''}/`.replace('//', '/');
 
 console.log('>>>>>>> webpack.config.dev.js > process.env.NODE_ENV <<<<<<<<: ', process.env.NODE_ENV);
+//       path.join(__dirname, './client/assets/scss/global.scss'),
 
 module.exports = {
   
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'inline-source-map',
 
   entry: {
     app: [
       'eventsource-polyfill',
       'webpack-hot-middleware/client?reload=true',
-      'webpack/hot/only-dev-server',
+      //'webpack/hot/only-dev-server',
       'react-hot-loader/patch',
       'babel-polyfill',
-      path.join(__dirname, './client/assets/scss/global.scss'),
       path.join(__dirname, './client/index.js')
     ],
     vendor: ['react', 'redux', 'react-dom']
   },
 
   output: {
-    path: path.join(__dirname, './dist'),
+    path: __dirname,
     // the target directory for all output files
     // must be an absolute path (use the Node.js path module)
     // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     filename: '[name].js',
     // the filename template for entry chunks
     // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //chunkFilename: "[name].js",
     // chunkFilename: "[id].js",
     // chunkFilename: '[name].[chunkhash].js', // for long term caching
     // the filename template for additional chunks
@@ -39,6 +40,12 @@ module.exports = {
     publicPath: '/',
     // the url to the output directory resolved relative to the HTML page
   },
+
+  resolve: {
+    extensions: ['.js', '.jsx'],
+    modules: ['client', 'node_modules']
+  },
+
 
   module: {
     loaders: [
