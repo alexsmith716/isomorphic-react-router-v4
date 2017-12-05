@@ -1,4 +1,5 @@
 
+// import Navbar from '../modules/App/navbar';
 import About from '../modules/About/About';
 import Home from '../modules/Home/Home';
 import Login from '../modules/Login/Login';

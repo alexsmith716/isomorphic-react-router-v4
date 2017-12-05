@@ -7,7 +7,6 @@
   "license": "MIT",
   "scripts": {
     "sd": "BABEL_DISABLE_CACHE=1 NODE_ENV=development nodemon --inspect index.js",
-    "bd": "NODE_ENV=development webpack --config webpack.config.dev.js",
     "start": "webpack-dev-server --host 0.0.0.0 --progress --env.dev --watch-poll",
     "start:prod": "cross-env NODE_ENV=production node --inspect ./dist/server.bundle.js",
     "build:client": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",

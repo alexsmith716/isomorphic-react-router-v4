@@ -9,6 +9,7 @@ import routeOptions from '../../routes/routes';
 
 console.log('>>>>>>> clinet > modules > App > App <<<<<<<<<<<')
 
+/*
 class App extends Component {
 
   render() {
@@ -33,5 +34,26 @@ class App extends Component {
 
   }
 }
+*/
+class App extends Component {
+
+  render() {
+
+    let routes = routeOptions.routes.map(({ path, component, exact }, i) =>
+      <Route key={Math.random() + 'ROUTE_'} exact={exact} path={path} component={component} />
+    );
+
+    return (
+      <div>
+        <Navbar />
+        <Switch>
+          {routes}
+        </Switch>
+      </div>
+    );
+
+  }
+}
 
 export default App;
+
